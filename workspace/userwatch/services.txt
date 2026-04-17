@@ -1,0 +1,45 @@
+# services.txt - services scored by C2/NCAE Cybergames
+# Source: https://gitlab.com/c2-games/scoring/service-checks/scripts
+#
+# Scored checks and their daemons:
+#   check_ssh.py      -> sshd         (port 22,  RSA key auth + command exec)
+#   check_ftp.py      -> vsftpd       (port 21,  login / file read / write / hash)
+#   check_dns.py      -> bind9/named  (port 53,  forward + reverse lookups)
+#   check_smb.py      -> smbd / nmbd  (port 445, login / share read / write)
+#   check_http.py     -> apache2/nginx (port 80,  connectivity + web content)
+#   check_mysql.py    -> mysql        (port 3306, connect / read / write)
+#   check_postgresql.py -> postgresql (port 5432, connect / read / write)
+#   check_icmp.py     -> (no daemon)  ICMP ping -- stopping the host or blocking
+#                                     ICMP fails this check; caught by shutdown/
+#                                     reboot/iptables patterns in SCORING_PATTERNS
+
+# HTTP (web content checks also require the web server to serve PHP/app content)
+apache2
+nginx
+
+# PHP FastCGI -- stopping php-fpm causes 502 errors even with Apache/Nginx running,
+# failing the web content checks (betterblog, etech, music shop, scc)
+php-fpm
+php7.4-fpm
+php8.1-fpm
+php8.2-fpm
+php8.3-fpm
+
+# SSH
+sshd
+
+# FTP
+vsftpd
+
+# SMB / Samba  (smbd = file sharing on 445; nmbd = NetBIOS name service)
+smbd
+nmbd
+
+# DNS
+bind9
+named
+
+# Database
+mysql
+mariadb
+postgresql
