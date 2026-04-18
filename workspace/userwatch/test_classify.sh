@@ -2,7 +2,7 @@
 # test_classify.sh -- unit tests for classify_command pattern matching.
 # Run on Linux or WSL: bash test_classify.sh
 #
-# Pattern arrays must stay in sync with userwatch.sh.
+# Pattern arrays must stay in sync with ope.sh.
 
 REDTEAM_PATTERNS=(
     'bash -i|/dev/tcp/|/dev/udp/'
