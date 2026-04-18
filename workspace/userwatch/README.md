@@ -1,13 +1,13 @@
-# userwatch
+# ope
 
-userwatch watches your Linux machine in real time and alerts you when someone does something suspicious. It monitors who logs in, what commands get run with elevated privileges, whether any new accounts appear, and whether anyone tries to kill your scored services.
+ope watches your Linux machine in real time and alerts you when someone does something suspicious. It monitors who logs in, what commands get run with elevated privileges, whether any new accounts appear, and whether anyone tries to kill your scored services.
 
 ---
 
 ## How to run it
 
 ```bash
-sudo bash userwatch.sh
+sudo bash ope.sh
 ```
 
 Run it as root. Leave it running in a terminal — it prints alerts as they happen. Stop it with `Ctrl+C`.
@@ -45,9 +45,9 @@ If you try to start it twice, it will tell you it's already running and show you
 | Green | `[LOGIN]` | A login was accepted — SSH, FTP, or SMB. Not an alert, just informational |
 | Cyan | `[LOGOUT]` | A terminal session ended |
 
-The person running userwatch is never alerted on.
+The person running ope is never alerted on.
 
-If the same attack repeats rapidly (like a password brute force), userwatch only prints once every 30 seconds per attacker so the screen doesn't flood. Every single event is still written to the log file.
+If the same attack repeats rapidly (like a password brute force), ope only prints once every 30 seconds per attacker so the screen doesn't flood. Every single event is still written to the log file.
 
 ---
 
@@ -59,14 +59,14 @@ If the same attack repeats rapidly (like a password brute force), userwatch only
 | `userActivity/<user>.txt` | Everything that user did, one file per account |
 | `SCORING-Users.txt` | Human accounts (normal login accounts) found when the script started |
 | `REDTEAM-Users.txt` | Accounts that triggered a REDTEAM alert or were created while the script was running |
-| `userwatch.log` | Full record of every event — never filtered, never rate-limited |
-| `userwatch.pid` | The process ID of the running script |
+| `ope.log` | Full record of every event — never filtered, never rate-limited |
+| `ope.pid` | The process ID of the running script |
 
 ---
 
 ## services.txt
 
-This file lists the services that are actually scored in the competition. When userwatch sees a command that names one of these services alongside words like `stop`, `kill`, or `disable`, it escalates the alert to `[SCORING]` — even if the command wouldn't normally match that tier.
+This file lists the services that are actually scored in the competition. When ope sees a command that names one of these services alongside words like `stop`, `kill`, or `disable`, it escalates the alert to `[SCORING]` — even if the command wouldn't normally match that tier.
 
 Edit this file to add or remove services. One name per line, lines starting with `#` are ignored.
 
