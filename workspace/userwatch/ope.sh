@@ -14,8 +14,8 @@ readonly USER_REPORT="${SCRIPT_DIR}/user_report.txt"
 readonly SERVICES_FILE="${SCRIPT_DIR}/services.txt"
 readonly SCORING_USERS_FILE="${SCRIPT_DIR}/SCORING-Users.txt"
 readonly REDTEAM_USERS_FILE="${SCRIPT_DIR}/REDTEAM-Users.txt"
-readonly LOG_FILE="${SCRIPT_DIR}/userwatch.log"
-readonly PID_FILE="${SCRIPT_DIR}/userwatch.pid"
+readonly LOG_FILE="${SCRIPT_DIR}/ope.log"
+readonly PID_FILE="${SCRIPT_DIR}/ope.pid"
 readonly POLL_INTERVAL=3
 readonly BRUTE_FORCE_WINDOW=30   # seconds before the same rate-key can print again
 
@@ -756,7 +756,7 @@ check_redteam_artifacts() {
 
 cleanup() {
     echo ""
-    log "userwatch shutting down"
+    log "ope shutting down"
     if [[ -n "${AUTH_MONITOR_PID}" ]]; then
         kill "${AUTH_MONITOR_PID}" 2>/dev/null || true
     fi
@@ -776,7 +776,7 @@ main() {
         existing_pid="$(cat "${PID_FILE}" 2>/dev/null)"
         if [[ -n "${existing_pid}" ]] && [[ "${existing_pid}" =~ ^[0-9]+$ ]] \
            && kill -0 "${existing_pid}" 2>/dev/null; then
-            echo "ERROR: userwatch is already running (pid ${existing_pid})."
+            echo "ERROR: ope is already running (pid ${existing_pid})."
             echo "       Stop it first:  kill ${existing_pid}"
             exit 1
         fi
@@ -785,7 +785,7 @@ main() {
     echo $$ > "${PID_FILE}"
 
     echo -e "${BOLD}============================================================${RESET}"
-    echo -e "${BOLD}  USERWATCH -- UA -- YOU KNOW ${RESET}"
+    echo -e "${BOLD}  OPE -- UA -- YOU KNOW ${RESET}"
     local _start; printf -v _start '%(%Y-%m-%d %H:%M:%S)T' -1
     echo -e "${BOLD}  Started : ${_start}${RESET}"
     echo -e "${BOLD}  Runner  : ${SCRIPT_RUNNER} (never alerted)${RESET}"
